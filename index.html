@@ -131,24 +131,45 @@
 
 
   <div id="aihub-chat"></div>
+<div id="aihub-chat"></div>
 
+<!-- DESACTIVA AUTO INIT -->
+<script>
+  window.AIHubConfig = {
+    autoInit: false
+  };
+</script>
 
-  <script src="https://hub.serenitystar.ai/resources/chat.js"></script>
+<!-- SDK -->
+<script src="https://hub.serenitystar.ai/resources/chat.js"></script>
 
+<!-- TU INICIALIZACIÓN -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-  <script>
-      document.addEventListener("DOMContentLoaded", function () {
-          const chat = new AIHubChat('#aihub-chat', {
-              apiKey: "d8faacf2-f286-442a-bc7b-00cc8459aaab",
-              agentCode: "asesorbot",
-              baseURL: "https://api.serenitystar.ai/api",
-          });
-          chat.init();
-      });
-  </script>
+  function waitSDK() {
+    if (typeof AIHubChat === "undefined") {
+      requestAnimationFrame(waitSDK);
+      return;
+    }
+
+    const chat = new AIHubChat('#aihub-chat', {
+      apiKey: "d8faacf2-f286-442a-bc7b-00cc8459aaab",
+      agentCode: "asesorbot",
+      baseURL: "https://api.serenitystar.ai/api",
+    });
+
+    chat.init();
+  }
+
+  waitSDK();
+});
+</script>
+
 
 </body>
 </html>
+
 
 
 

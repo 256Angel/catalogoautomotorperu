@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
-
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0;
@@ -40,14 +39,14 @@
     .scroll-text {
       display: flex;
       white-space: nowrap;
-      animation: scroll 25s linear infinite; 
+      animation: scroll 25s linear infinite;
     }
 
     .scroll-text span {
       font-size: 0.95rem;
       font-weight: 600;
       color: #fff;
-      padding-right: 80px; 
+      padding-right: 80px;
     }
 
     @keyframes scroll {
@@ -97,39 +96,6 @@
     .gallery img:hover {
       transform: scale(1.05);
     }
-/* Capa raíz transparente */
-#aihub-chat {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 9999;
-}
-
-/* El custom element que pinta Serenity */
-#aihub-chat aihub-chat {
-  position: absolute !important;
-  bottom: 20px !important;
-  right: 20px !important;
-  width: 380px !important;
-  height: 480px !important;
-  max-width: 90vw !important;
-  pointer-events: auto;          /* acá sí aceptamos clics */
-  background: transparent !important;
-}
-
-/* Wrapper y container internos: que ocupen solo nuestro panel */
-#aihub-chat aihub-chat .Chat_wrapper__p90C0,
-#aihub-chat aihub-chat .Chat_container__x4T-U {
-  width: 100% !important;
-  height: 100% !important;
-  max-width: 100% !important;
-}
-
-
-
   </style>
 </head>
 
@@ -161,43 +127,24 @@
     <img src="04.png" alt="Repuesto 04">
   </div>
 
+  <!-- Contenedor del chat de Serenity -->
+  <div id="aihub-chat"></div>
 
+  <!-- SDK de Serenity -->
+  <script src="https://hub.serenitystar.ai/resources/chat.js"></script>
 
-<div id="aihub-chat"></div>
+  <!-- Inicialización del chat -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const chat = new AIHubChat('aihub-chat', {
+        apiKey: "d8faacf2-f286-442a-bc7b-00cc8459aaab",
+        agentCode: "asesorbot",
+        baseURL: "https://api.serenitystar.ai/api",
+      });
 
-<!-- DESACTIVA AUTO INIT -->
-<script>
-  window.AIHubConfig = {
-    autoInit: false
-  };
-</script>
-
-<!-- SDK -->
-<script src="https://hub.serenitystar.ai/resources/chat.js"></script>
-
-<!-- TU INICIALIZACIÓN -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  function waitSDK() {
-    if (typeof AIHubChat === "undefined") {
-      requestAnimationFrame(waitSDK);
-      return;
-    }
-
-    const chat = new AIHubChat('aihub-chat', {   // ← SIN #
-      apiKey: "d8faacf2-f286-442a-bc7b-00cc8459aaab",
-      agentCode: "asesorbot",
-      baseURL: "https://api.serenitystar.ai/api",
+      chat.init();
     });
-
-    chat.init();
-  }
-
-  waitSDK();
-});
-</script>
-
+  </script>
 
 </body>
 </html>

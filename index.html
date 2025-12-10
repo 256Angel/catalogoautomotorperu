@@ -96,16 +96,19 @@
     .gallery img:hover {
       transform: scale(1.05);
     }
-#aihub-chat {
-  width: 350px; /* ancho fijo para apariencia clásica */
-  height: 500px; /* altura definida para que no sea demasiado grande */
-  max-width: 90vw; /* responsivo en pantallas pequeñas */
-  margin: 40px auto 60px auto; /* centrado con espacio arriba y abajo */
-  border-radius: 12px; /* bordes redondeados suaves */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* sombra sutil para profundidad */
-  overflow: hidden; /* para que el contenido no se salga */
-  background-color: #fff; /* fondo blanco para claridad */
-}
+  /* Estilo clásico para el chat widget fijo en esquina inferior derecha */
+  #aihub-chat {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    height: 480px;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+    overflow: hidden;
+    z-index: 10000;
+  }
   </style>
 </head>
 
@@ -158,6 +161,7 @@
 
 </body>
 </html>
+
 
 
 

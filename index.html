@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+head>
   <meta charset="UTF-8" />
   <title>catalogoautomotorperu - Proveedores Oficiales de Repuestos en Peru</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- CSS del widget de Serenity (muy importante) -->
+  <link
+    rel="stylesheet"
+    href="https://hub.serenitystar.ai/resources/chat.css"
+  />
 
   <style>
     /* --- ESTILO GENERAL --- */
@@ -15,14 +21,12 @@
       line-height: 1.5;
     }
 
-    /* Contenedor principal centrado */
     .main-container {
       max-width: 900px;
       margin: 0 auto;
       padding: 20px 16px 60px;
     }
 
-    /* --- BANNER SUPERIOR --- */
     .banner-wrapper {
       margin-bottom: 25px;
     }
@@ -57,7 +61,6 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* --- TARJETA DE TEXTO PRINCIPAL --- */
     .card {
       background: #ffffff;
       border-radius: 1rem;
@@ -79,7 +82,6 @@
       color: #065f46;
     }
 
-    /* --- GALERÍA EN SU PROPIA TARJETA --- */
     .gallery-card {
       background: #ffffff;
       border-radius: 1rem;
@@ -109,48 +111,7 @@
       transform: scale(1.05);
     }
 
-    /* --- CHAT FLOTANTE AI HUB / SERENITY --- */
-    #aihub-chat {
-      position: fixed;
-      bottom: 20px;
-      /* Lo pegamos al lado derecho de la columna de 900px, no del borde de la pantalla */
-      right: calc((100vw - 900px) / 2 + 10px);
-      width: 320px;
-      max-width: 90vw;
-      height: 480px;
-      max-height: 80vh;
-      border-radius: 15px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-      background-color: #fff;
-      overflow: hidden;
-      z-index: 10000;
-    }
-
-    /* --- AJUSTES RESPONSIVE --- */
-    @media (max-width: 960px) {
-      /* En pantallas chicas lo volvemos a la esquina clásica */
-      #aihub-chat {
-        right: 20px;
-        width: 90vw;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .banner {
-        height: auto;
-        padding: 10px 0;
-      }
-
-      .scroll-text span {
-        font-size: 0.8rem;
-        padding-right: 40px;
-      }
-
-      .gallery img {
-        width: 45%;
-        max-width: 160px;
-      }
-    }
+    /* por ahora NO tocamos #aihub-chat, dejamos que el CSS oficial maneje tamaño/posicion */
   </style>
 </head>
 
@@ -209,6 +170,7 @@
 
 </body>
 </html>
+
 
 
 

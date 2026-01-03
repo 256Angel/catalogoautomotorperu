@@ -242,7 +242,51 @@
       font-size:12.5px;
     }
     .badge strong{color: var(--accent2)}
-    
+
+    /* Modal */
+    .modal-backdrop{
+      position: fixed;
+      inset:0;
+      background: rgba(4,7,15,.72);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 120;
+    }
+    .modal-backdrop.active{display:flex;}
+    .modal{
+      background: linear-gradient(180deg, rgba(17,32,58,.94), rgba(11,18,32,.96));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      box-shadow: 0 25px 60px rgba(0,0,0,.45);
+      max-width: 520px;
+      width: 100%;
+      padding: 22px;
+      position: relative;
+      color: var(--text);
+      animation: fadeInUp .18s ease;
+    }
+    .modal h3{margin:0 0 8px; font-size: 20px; letter-spacing:-.2px;}
+    .modal p{margin:0; line-height:1.6; color: var(--muted);}
+    .modal .close{
+      position:absolute;
+      top:12px; right:12px;
+      width:34px; height:34px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      transition: background .12s ease, transform .12s ease;
+    }
+    .modal .close:hover{background: rgba(255,255,255,.10); transform: translateY(-1px);}
+    @keyframes fadeInUp{from{opacity:0; transform: translateY(8px);} to{opacity:1; transform: translateY(0);}}
+
     @media (max-width: 640px){
       .nav{display:none;}
       .actions{gap:10px;}
@@ -446,7 +490,7 @@
               <input required type="email" name="email" placeholder="Email" />
               <textarea name="mensaje" placeholder="¿Qué querés automatizar? (ventas, repuestos, soporte, logística, etc.)"></textarea>
               <button class="btn primary" type="submit">Enviar</button>
-              <div class="mini">Este formulario es demo. Se puede conectar a tu correo, CRM o WhatsApp.</div>
+              <div class="mini">Se enviara una comunicacion y cuanto antes se te respodera</div>
             </form>
           </div>
         </div>
@@ -464,6 +508,8 @@
               <a class="muted" href="https://wa.me/51950523834?text=Hola%2C%20quiero%20solicitar%20una%20demo%20de%20Agentrial%20para%20mi%20empresa%20en%20Sudam%C3%A9rica.%20%C2%BFPodemos%20coordinar%20una%20llamada%3F">contacto@agentrial.com</a>
               <span class="muted"> • </span>
               <a class="muted" href="#" onclick="alert('Reemplazá este link por tu WhatsApp Business (wa.me/...)'); return false;">WhatsApp</a>
+              <span class="muted"> • </span>
+              <a class="muted" href="#" onclick="return openAbout(event);">Nosotros</a>
             </div>
           </div>
         </div>
@@ -484,6 +530,49 @@
       window.location.href = `https://wa.me/51950523834?text=Hola%2C%20quiero%20solicitar%20una%20demo%20de%20Agentrial%20para%20mi%20empresa%20en%20Sudam%C3%A9rica.%20%C2%BFPodemos%20coordinar%20una%20llamada%3F?subject=${subject}&body=${body}`;
       return false;
     }
+
+    const modalBackdrop = document.createElement('div');
+    let lastFocusedElement = null;
+    modalBackdrop.className = 'modal-backdrop';
+    modalBackdrop.setAttribute('aria-hidden', 'true');
+    modalBackdrop.innerHTML = `
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="about-title">
+        <button class="close" aria-label="Cerrar" onclick="closeAbout()">×</button>
+        <h3 id="about-title">Nosotros</h3>
+        <p>Somos un emprendimiento nuevo enfocado en automatización y agentes IA para procesos de posventa industrial. En breve vamos a empezar a publicar contenido, mantente actualizado.</p>
+      </div>
+    `;
+    document.body.appendChild(modalBackdrop);
+
+    function openAbout(event){
+      if(event) event.preventDefault();
+      lastFocusedElement = document.activeElement;
+      modalBackdrop.classList.add('active');
+      modalBackdrop.setAttribute('aria-hidden', 'false');
+      const closeButton = modalBackdrop.querySelector('.close');
+      if(closeButton) closeButton.focus();
+      document.addEventListener('keydown', escListener);
+      return false;
+    }
+
+    function closeAbout(){
+      modalBackdrop.classList.remove('active');
+      modalBackdrop.setAttribute('aria-hidden', 'true');
+      document.removeEventListener('keydown', escListener);
+      if(lastFocusedElement) lastFocusedElement.focus();
+    }
+
+    function escListener(e){
+      if(e.key === 'Escape'){
+        closeAbout();
+      }
+    }
+
+    modalBackdrop.addEventListener('click', (e)=>{
+      if(e.target === modalBackdrop){
+        closeAbout();
+      }
+    });
   </script>
 </body>
 </html>
